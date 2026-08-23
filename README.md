@@ -883,10 +883,6 @@ Conversational AI + Configurable Workflows + Human Governance + Automated Docume
 
 📜 License
 
-Add your chosen license here before publishing the project publicly.
-
-For example:
-
-MIT License
-
-or another license selected by the project owners.
+NEXUS PROPRIETARY LICENSE
+Copyright (c) 2026 Mohammad Saifullah Khan
+All Rights Reserved.  
