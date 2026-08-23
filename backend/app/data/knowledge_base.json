@@ -1,0 +1,208 @@
+{
+  "meta": {
+    "name": "NEXUS Demo University Knowledge Base",
+    "version": "1.0.0",
+    "mode": "DEMO",
+    "note": "Fictional project knowledge. Not official university policy."
+  },
+  "entries": [
+    {
+      "id": "about-nexus-university",
+      "category": "GENERAL",
+      "title": "About NEXUS University",
+      "content": "NEXUS University is the fictional institution used by this project. NEXUS is its digital student-service assistant for questions, service requests, request tracking, notifications, and support.",
+      "keywords": [
+        "university",
+        "college",
+        "campus",
+        "nexus"
+      ]
+    },
+    {
+      "id": "student-portal",
+      "category": "GENERAL",
+      "title": "Student Portal",
+      "content": "Students use the NEXUS portal to submit service requests, see request status, receive notifications, review request details, and chat with NEXUS.",
+      "keywords": [
+        "portal",
+        "dashboard",
+        "student portal",
+        "login"
+      ]
+    },
+    {
+      "id": "bonafide",
+      "category": "SERVICE",
+      "title": "Bonafide Certificate",
+      "content": "A Bonafide Certificate confirms that a student is enrolled at the institution. NEXUS can create a Bonafide Certificate request after the student reviews and confirms it.",
+      "keywords": [
+        "bonafide",
+        "bonafide certificate",
+        "enrollment certificate",
+        "proof of enrollment"
+      ]
+    },
+    {
+      "id": "fee-receipt",
+      "category": "SERVICE",
+      "title": "Fee Receipt",
+      "content": "A Fee Receipt is proof of fee payment. For a Fee Receipt request, NEXUS asks the student for a Transaction ID or UTR number, shows that value back for confirmation, and only then creates the request.",
+      "keywords": [
+        "fee receipt",
+        "fees receipt",
+        "payment receipt",
+        "utr",
+        "transaction id",
+        "transaction number"
+      ]
+    },
+    {
+      "id": "transcript",
+      "category": "SERVICE",
+      "title": "Academic Transcript",
+      "content": "An academic transcript is an official record of a student's academic performance. NEXUS can create a transcript request after the student confirms it.",
+      "keywords": [
+        "transcript",
+        "academic transcript",
+        "academic record"
+      ]
+    },
+    {
+      "id": "id-card",
+      "category": "SERVICE",
+      "title": "ID Card Replacement",
+      "content": "Students can request a replacement ID card when the existing card is lost, damaged, or otherwise needs replacement. The request is created only after confirmation.",
+      "keywords": [
+        "id card",
+        "replacement id",
+        "replace id",
+        "lost id",
+        "damaged id"
+      ]
+    },
+    {
+      "id": "leave",
+      "category": "SERVICE",
+      "title": "Leave Application",
+      "content": "Students can submit a Leave Application through NEXUS. The student provides the relevant leave information, reviews the request, and confirms before creation.",
+      "keywords": [
+        "leave",
+        "leave application",
+        "leave request",
+        "absence",
+        "apply leave"
+      ]
+    },
+    {
+      "id": "request-status",
+      "category": "REQUESTS",
+      "title": "Request Statuses",
+      "content": "PENDING means a request is waiting to be processed. APPROVAL_REQUIRED means approval is needed. PROCESSING means the request is actively being handled. COMPLETED means the workflow is finished. REJECTED means it was not approved or completed.",
+      "keywords": [
+        "request status",
+        "pending",
+        "approval required",
+        "processing",
+        "completed",
+        "rejected"
+      ]
+    },
+    {
+      "id": "request-confirmation",
+      "category": "REQUESTS",
+      "title": "Request Confirmation",
+      "content": "NEXUS asks students to confirm before creating a service request. Students can use natural confirmations such as 'yes', 'go ahead', or 'please create it', and cancellations such as 'no', 'cancel it', or 'never mind'.",
+      "keywords": [
+        "confirmation",
+        "confirm request",
+        "cancel request"
+      ]
+    },
+    {
+      "id": "notifications",
+      "category": "REQUESTS",
+      "title": "Request Notifications",
+      "content": "After a request is created, the student can receive a notification. Staff and administrators can also receive a new-request notification for requests that need processing.",
+      "keywords": [
+        "notification",
+        "notifications",
+        "staff notification"
+      ]
+    },
+    {
+      "id": "request-card",
+      "category": "REQUESTS",
+      "title": "Request Card",
+      "content": "When a request is successfully created, NEXUS can display a request card in the chat containing the request ID and status. Selecting the card opens the detailed request page.",
+      "keywords": [
+        "request card",
+        "request id",
+        "view request",
+        "chat card"
+      ]
+    },
+    {
+      "id": "conversation",
+      "category": "NEXUS",
+      "title": "NEXUS Conversations",
+      "content": "NEXUS stores conversations and messages so students can reopen previous chats and continue the same conversation. A new chat creates a separate conversation.",
+      "keywords": [
+        "conversation",
+        "chat history",
+        "previous chat",
+        "history"
+      ]
+    },
+    {
+      "id": "privacy",
+      "category": "SECURITY",
+      "title": "Conversation Privacy",
+      "content": "A student's NEXUS conversation belongs to that authenticated student. Conversation history should only be returned for the owning user.",
+      "keywords": [
+        "privacy",
+        "security",
+        "my chats",
+        "conversation privacy"
+      ]
+    },
+    {
+      "id": "fees-unconfigured",
+      "category": "POLICY",
+      "title": "Exact Fees Not Configured",
+      "content": "The demo knowledge base does not define exact university fees. NEXUS must not invent a fee and should say that the exact amount is not currently configured.",
+      "keywords": [
+        "fee",
+        "fees",
+        "cost",
+        "price",
+        "charge",
+        "amount"
+      ]
+    },
+    {
+      "id": "deadlines-unconfigured",
+      "category": "POLICY",
+      "title": "Exact Deadlines Not Configured",
+      "content": "The demo knowledge base does not define exact service deadlines or processing times. NEXUS must not invent a deadline or turnaround time.",
+      "keywords": [
+        "deadline",
+        "last date",
+        "due date",
+        "processing time",
+        "how long"
+      ]
+    },
+    {
+      "id": "documents-unconfigured",
+      "category": "POLICY",
+      "title": "Exact Document Checklists Not Configured",
+      "content": "The demo knowledge base does not define an exact university-specific document checklist for every service. NEXUS must not invent one. If a specific checklist is unavailable, it should say so.",
+      "keywords": [
+        "documents",
+        "required documents",
+        "requirements",
+        "papers"
+      ]
+    }
+  ]
+}
