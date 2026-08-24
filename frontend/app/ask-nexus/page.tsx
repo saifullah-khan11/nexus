@@ -79,7 +79,6 @@ function getRequestStatusClass(status: string) {
 
 export default function AskNexusPage() {
   const router = useRouter();
-  const [initialMessage, setInitialMessage] = useState("");
 
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
@@ -258,13 +257,13 @@ export default function AskNexusPage() {
 
     void loadConversations(token);
 
-    const params = new URLSearchParams(window.location.search);
-    const messageFromUrl = params.get("message")?.trim() ?? "";
-
-    setInitialMessage(messageFromUrl);
+    const initialMessage =
+      new URLSearchParams(window.location.search)
+        .get("message")
+        ?.trim() ?? "";
 
     if (
-      messageFromUrl &&
+      initialMessage &&
       !initialized &&
       !initialMessageConsumedRef.current
     ) {
@@ -277,8 +276,8 @@ export default function AskNexusPage() {
       // the same message a second time.
       window.history.replaceState({}, "", "/ask-nexus");
 
-      void sendToNexus(messageFromUrl);
-    } else if (!messageFromUrl) {
+      void sendToNexus(initialMessage);
+    } else if (!initialMessage) {
       if (!selectedConversationId) {
         newChatRef.current = true;
       }
