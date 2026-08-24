@@ -18,8 +18,9 @@ import {
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
-const API_URL = "http://localhost:8000";
-
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  
 type GeneratedDocument = {
   id: string;
   type: string;

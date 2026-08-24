@@ -29,7 +29,9 @@ import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 
-const API_URL = "http://localhost:8000";
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  
 
 type RequestStatus =
   | "PENDING"
@@ -655,6 +657,7 @@ export default function StaffPage() {
           </button>
 
           {accountRole === "ADMIN" && (
+          <>
             <button
               type="button"
               onClick={() => {
@@ -666,7 +669,20 @@ export default function StaffPage() {
               <Settings2 size={17} />
               Staff Management
             </button>
-          )}
+
+            <button
+              type="button"
+              onClick={() => {
+                setSidebarOpen(false);
+                router.push("/staff/service_catalog");
+              }}
+              className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-xs text-white/50 transition hover:bg-white/5 hover:text-white"
+            >
+              <FileText size={17} />
+              Service Catalog
+            </button>
+          </>
+        )}
 
           <button
             type="button"

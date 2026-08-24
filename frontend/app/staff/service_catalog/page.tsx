@@ -11,7 +11,6 @@ import {
   FileText,
   LayoutDashboard,
   LogOut,
-  Menu,
   Pencil,
   Plus,
   Save,
@@ -25,7 +24,9 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-const API_URL = "http://localhost:8000";
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  
 
 type Domain = {
   id: string;
@@ -129,7 +130,6 @@ async function apiRequest<T>(
 export default function ServiceCatalogPage() {
   const router = useRouter();
 
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [role, setRole] = useState("STAFF");
 
   const [domains, setDomains] = useState<Domain[]>([]);
@@ -712,144 +712,10 @@ export default function ServiceCatalogPage() {
 
   return (
     <main className="min-h-screen bg-[#07090d] text-white">
-      {sidebarOpen && (
-        <button
-          type="button"
-          aria-label="Close navigation"
-          onClick={() => setSidebarOpen(false)}
-          className="fixed inset-0 z-40 bg-black/65 backdrop-blur-sm lg:hidden"
-        />
-      )}
-
-      <aside
-        className={`fixed left-0 top-0 z-50 flex h-screen w-[270px] flex-col border-r border-white/[0.07] bg-[#0b0e13] px-5 py-6 transition-transform duration-300 ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:translate-x-0`}
-      >
-        <div className="flex items-center justify-between">
-          <button
-            type="button"
-            onClick={() => router.push("/staff")}
-            className="flex items-center gap-3 text-left"
-          >
-            <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-white text-black shadow-lg shadow-cyan-500/5">
-              <div className="absolute -inset-8 animate-[spin_5s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0deg,rgba(34,211,238,0.85)_80deg,rgba(59,130,246,0.75)_160deg,rgba(139,92,246,0.85)_240deg,transparent_320deg)] opacity-55" />
-              <div className="relative flex h-[34px] w-[34px] items-center justify-center rounded-[10px] bg-[#f7f8fa]">
-                <Sparkles size={20} />
-              </div>
-            </div>
-            <div>
-              <div className="text-lg font-semibold tracking-tight">NEXUS</div>
-              <div className="text-[10px] uppercase tracking-[0.25em] text-white/35">
-                {role === "ADMIN" ? "Admin Workspace" : "Staff Workspace"}
-              </div>
-            </div>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setSidebarOpen(false)}
-            className="rounded-lg p-2 text-white/50 hover:bg-white/5 hover:text-white lg:hidden"
-            aria-label="Close navigation"
-          >
-            <X size={18} />
-          </button>
-        </div>
-
-        <nav className="mt-10 space-y-1.5">
-          <SidebarItem
-            icon={<LayoutDashboard size={17} />}
-            label="Dashboard"
-            onClick={() => {
-              setSidebarOpen(false);
-              router.push("/staff");
-            }}
-          />
-          <SidebarItem
-            icon={<FileText size={17} />}
-            label="My Requests"
-            onClick={() => {
-              setSidebarOpen(false);
-              router.push("/requests");
-            }}
-          />
-          <SidebarItem
-            icon={<UserCircle size={17} />}
-            label="Student Signups"
-            onClick={() => {
-              setSidebarOpen(false);
-              router.push("/staff/student-signups");
-            }}
-          />
-          <SidebarItem
-            icon={<Users size={17} />}
-            label="Students / Users"
-            onClick={() => {
-              setSidebarOpen(false);
-              router.push("/staff/users");
-            }}
-          />
-          <SidebarItem
-            icon={<Bell size={17} />}
-            label="Notifications"
-            onClick={() => {
-              setSidebarOpen(false);
-              router.push("/staff/notifications");
-            }}
-          />
-          <SidebarItem
-            icon={<Settings2 size={17} />}
-            label="Staff Management"
-            onClick={() => {
-              setSidebarOpen(false);
-              router.push("/staff/staff-management");
-            }}
-          />
-          <SidebarItem
-            icon={<SlidersHorizontal size={17} />}
-            label="Service Catalog"
-            active
-            onClick={() => setSidebarOpen(false)}
-          />
-        </nav>
-
-        <div className="mt-auto">
-          <div className="mb-4 rounded-2xl border border-white/[0.07] bg-white/[0.025] p-4">
-            <div className="mb-2 flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-emerald-400" />
-              <span className="text-xs font-medium text-white/70">
-                NEXUS is online
-              </span>
-            </div>
-            <p className="text-xs leading-5 text-white/35">
-              Manage university services, forms, and certificate templates.
-            </p>
-          </div>
-
-          <button
-            type="button"
-            onClick={logout}
-            className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm text-white/45 transition hover:bg-white/5 hover:text-white"
-          >
-            <LogOut size={17} />
-            Sign out
-          </button>
-        </div>
-      </aside>
-
-      <div className="lg:pl-[270px]">
+      <div>
         <header className="sticky top-0 z-30 border-b border-white/[0.06] bg-[#07090d]/88 backdrop-blur-xl">
           <div className="flex h-[72px] items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
             <div className="flex min-w-0 items-center gap-2">
-              <button
-                type="button"
-                onClick={() => setSidebarOpen(true)}
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/[0.07] text-white/55 transition hover:bg-white/[0.04] hover:text-white lg:hidden"
-                aria-label="Open navigation"
-              >
-                <Menu size={18} />
-              </button>
-
               <button
                 type="button"
                 onClick={() => router.push("/staff")}
@@ -968,7 +834,6 @@ export default function ServiceCatalogPage() {
                           setSelectedServiceId(null);
                           setFields([]);
                           setTemplate(null);
-                          setSidebarOpen(false);
                         }}
                         className={`group flex w-full items-center justify-between rounded-xl px-3 py-3 text-left transition ${
                           selectedDomainId === domain.id

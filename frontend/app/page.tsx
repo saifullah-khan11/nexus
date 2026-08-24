@@ -25,8 +25,9 @@ import {
 import { useEffect,useRef, useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 
-const API_URL = "http://localhost:8000";
-
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  
 const services = [
   {
     title: "Bonafide Certificate",

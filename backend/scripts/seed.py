@@ -1,6 +1,6 @@
 from app.core.database import SessionLocal
 from app.models.service import Service
-
+from app.models.service_catalog import ServiceDomain
 
 services = [
     {
