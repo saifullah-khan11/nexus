@@ -28,7 +28,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000",
                    "https://nexus-209lorh4v-saifullah-khan11s-projects.vercel.app",
-                   "https://asknexus.in",
+                   "https://www.asknexus.in",
                    "https://nexus-woad-gamma.vercel.app",
                    "https://nexus-git-main-saifullah-khan11s-projects.vercel.app",],
     allow_credentials=True,
