@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import {
   ArrowLeft,
   ArrowUpRight,
@@ -77,7 +78,7 @@ function getRequestStatusClass(status: string) {
   }
 }
 
-export default function AskNexusPage() {
+function AskNexusContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialMessage = searchParams.get("message")?.trim() ?? "";
@@ -731,5 +732,13 @@ export default function AskNexusPage() {
       </section>
       </div>
     </main>
+  );
+}
+
+export default function AskNexusPage() {
+  return (
+    <Suspense fallback={null}>
+      <AskNexusContent />
+    </Suspense>
   );
 }
