@@ -1260,7 +1260,7 @@ def get_request(
             Service,
             ServiceRequest.service_id == Service.id,
         )
-        .join(
+        .outerjoin(
             ServiceDomain,
             Service.domain_id == ServiceDomain.id,
         )
