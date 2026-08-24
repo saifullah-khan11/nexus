@@ -1,6 +1,5 @@
 "use client";
 
-import { Suspense } from "react";
 import {
   ArrowLeft,
   ArrowUpRight,
@@ -18,7 +17,7 @@ import {
   type FormEvent,
   type KeyboardEvent,
 } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
@@ -78,10 +77,9 @@ function getRequestStatusClass(status: string) {
   }
 }
 
-function AskNexusContent() {
+export default function AskNexusPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const initialMessage = searchParams.get("message")?.trim() ?? "";
+  const [initialMessage, setInitialMessage] = useState("");
 
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
@@ -260,8 +258,13 @@ function AskNexusContent() {
 
     void loadConversations(token);
 
+    const params = new URLSearchParams(window.location.search);
+    const messageFromUrl = params.get("message")?.trim() ?? "";
+
+    setInitialMessage(messageFromUrl);
+
     if (
-      initialMessage &&
+      messageFromUrl &&
       !initialized &&
       !initialMessageConsumedRef.current
     ) {
@@ -272,14 +275,10 @@ function AskNexusContent() {
       // Consume the dashboard hand-off URL immediately so a remount,
       // Strict Mode effect replay, or browser restoration cannot submit
       // the same message a second time.
-      window.history.replaceState(
-        {},
-        "",
-        "/ask-nexus"
-      );
+      window.history.replaceState({}, "", "/ask-nexus");
 
-      void sendToNexus(initialMessage);
-    } else if (!initialMessage) {
+      void sendToNexus(messageFromUrl);
+    } else if (!messageFromUrl) {
       if (!selectedConversationId) {
         newChatRef.current = true;
       }
@@ -289,7 +288,7 @@ function AskNexusContent() {
     }
     // Initial query parameter is intentionally processed once.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialMessage, initialized, router]);
+  }, [initialized, router]);
 
   useEffect(() => {
     if (messages.length === 0) {
@@ -732,13 +731,5 @@ function AskNexusContent() {
       </section>
       </div>
     </main>
-  );
-}
-
-export default function AskNexusPage() {
-  return (
-    <Suspense fallback={null}>
-      <AskNexusContent />
-    </Suspense>
   );
 }
