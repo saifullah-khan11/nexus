@@ -18,6 +18,7 @@ import {
   type KeyboardEvent,
 } from "react";
 import { useRouter } from "next/navigation";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
@@ -65,15 +66,15 @@ type ChatMessage = {
 function getRequestStatusClass(status: string) {
   switch (status) {
     case "COMPLETED":
-      return "border-emerald-300/15 bg-emerald-300/[0.06] text-emerald-200";
+      return "border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:border-emerald-300/15 dark:bg-emerald-300/[0.06] dark:text-emerald-200";
     case "REJECTED":
-      return "border-rose-300/15 bg-rose-300/[0.06] text-rose-200";
+      return "border-rose-500/20 bg-rose-500/10 text-rose-700 dark:border-rose-300/15 dark:bg-rose-300/[0.06] dark:text-rose-200";
     case "PROCESSING":
-      return "border-cyan-300/15 bg-cyan-300/[0.06] text-cyan-100";
+      return "border-cyan-500/20 bg-cyan-500/10 text-cyan-800 dark:border-cyan-300/15 dark:bg-cyan-300/[0.06] dark:text-cyan-100";
     case "APPROVAL_REQUIRED":
-      return "border-amber-300/15 bg-amber-300/[0.06] text-amber-200";
+      return "border-amber-500/20 bg-amber-500/10 text-amber-800 dark:border-amber-300/15 dark:bg-amber-300/[0.06] dark:text-amber-200";
     default:
-      return "border-white/[0.07] bg-white/[0.025] text-white/45";
+      return "border-slate-200 bg-slate-100 text-slate-600 dark:border-white/[0.07] dark:bg-white/[0.025] dark:text-white/45";
   }
 }
 
@@ -409,14 +410,14 @@ export default function AskNexusPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#07090d] text-white">
-      <header className="sticky top-0 z-30 border-b border-white/[0.06] bg-[#07090d]/90 backdrop-blur-xl">
+    <main className="min-h-screen bg-slate-50 text-slate-900 dark:bg-[#07090d] dark:text-white transition-colors duration-200">
+      <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/80 backdrop-blur-xl dark:border-white/[0.06] dark:bg-[#07090d]/90">
         <div className="mx-auto flex h-[76px] max-w-[1050px] items-center justify-between px-5 sm:px-8">
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={() => setHistoryOpen(true)}
-              className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.07] text-white/50 transition hover:bg-white/[0.04] hover:text-white lg:hidden"
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 dark:border-white/[0.07] dark:text-white/50 dark:hover:bg-white/[0.04] dark:hover:text-white lg:hidden"
               aria-label="Open conversation history"
             >
               <Clock3 size={16} />
@@ -425,309 +426,312 @@ export default function AskNexusPage() {
             <button
               type="button"
               onClick={() => router.push("/")}
-              className="group flex items-center gap-3 rounded-xl px-2 py-2 text-left transition hover:bg-white/[0.035]"
+              className="group flex items-center gap-3 rounded-xl px-2 py-2 text-left transition hover:bg-slate-100 dark:hover:bg-white/[0.035]"
             >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-black">
-              <Sparkles size={17} />
-            </div>
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-900 text-white dark:bg-white dark:text-black shadow-sm">
+                <Sparkles size={17} />
+              </div>
 
-            <div>
-              <p className="text-sm font-semibold">Ask NEXUS</p>
-              <p className="text-[9px] uppercase tracking-[0.22em] text-white/30">
-                University OS
-              </p>
-            </div>
-          </button>
-
+              <div>
+                <p className="text-sm font-semibold text-slate-900 dark:text-white">Ask NEXUS</p>
+                <p className="text-[9px] uppercase tracking-[0.22em] text-slate-400 dark:text-white/30">
+                  University OS
+                </p>
+              </div>
+            </button>
           </div>
 
-          <button
-            type="button"
-            onClick={() => router.push("/")}
-            className="flex items-center gap-2 rounded-xl border border-white/[0.07] px-3 py-2 text-xs text-white/45 transition hover:bg-white/[0.04] hover:text-white"
-          >
-            <ArrowLeft size={14} />
-            Dashboard
-          </button>
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+
+            <button
+              type="button"
+              onClick={() => router.push("/")}
+              className="flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-xs text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 dark:border-white/[0.07] dark:text-white/55 dark:hover:bg-white/[0.04] dark:hover:text-white"
+            >
+              <ArrowLeft size={14} />
+              Dashboard
+            </button>
+          </div>
         </div>
       </header>
 
       <div className="flex h-[calc(100vh-76px)] w-full min-h-0 overflow-hidden">
         {historyOpen && (
-        <button
-          type="button"
-          aria-label="Close conversation history"
-          onClick={() => setHistoryOpen(false)}
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
-        />
-      )}
+          <button
+            type="button"
+            aria-label="Close conversation history"
+            onClick={() => setHistoryOpen(false)}
+            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
+          />
+        )}
 
-      <aside
-        className={`fixed bottom-0 left-0 top-[76px] z-50 w-[300px] border-r border-white/[0.06] bg-[#090c11] transition-transform duration-200 lg:static lg:z-20 lg:block lg:h-full lg:w-[260px] lg:shrink-0 lg:translate-x-0 ${
-          historyOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-        <div className="flex h-full flex-col">
-          <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-4">
-            <div>
-              <p className="text-xs font-semibold text-white/80">
-                Conversations
-              </p>
-              <p className="mt-1 text-[10px] text-white/25">
-                Your NEXUS history
-              </p>
+        <aside
+          className={`fixed bottom-0 left-0 top-[76px] z-50 w-[300px] border-r border-slate-200/80 bg-white/95 backdrop-blur-xl transition-transform duration-200 dark:border-white/[0.06] dark:bg-[#090c11] lg:static lg:z-20 lg:block lg:h-full lg:w-[260px] lg:shrink-0 lg:translate-x-0 ${
+            historyOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+        >
+          <div className="flex h-full flex-col">
+            <div className="flex items-center justify-between border-b border-slate-200/80 px-4 py-4 dark:border-white/[0.06]">
+              <div>
+                <p className="text-xs font-semibold text-slate-900 dark:text-white/80">
+                  Conversations
+                </p>
+                <p className="mt-1 text-[10px] text-slate-400 dark:text-white/25">
+                  Your NEXUS history
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={startNewConversation}
+                className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-[10px] font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-900 dark:border-white/[0.08] dark:bg-white/[0.025] dark:text-white/55 dark:hover:bg-white/[0.06] dark:hover:text-white"
+              >
+                + New chat
+              </button>
             </div>
 
-            <button
-              type="button"
-              onClick={startNewConversation}
-              className="rounded-lg border border-white/[0.08] bg-white/[0.025] px-2.5 py-1.5 text-[10px] font-medium text-white/55 transition hover:bg-white/[0.06] hover:text-white"
-            >
-              + New chat
-            </button>
+            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-2">
+              {historyLoading ? (
+                <div className="flex items-center gap-2 px-3 py-4 text-[11px] text-slate-400 dark:text-white/30">
+                  <Loader2 size={13} className="animate-spin" />
+                  Loading conversations...
+                </div>
+              ) : conversations.length === 0 ? (
+                <div className="px-3 py-8 text-center">
+                  <p className="text-xs text-slate-500 dark:text-white/35">
+                    No previous conversations.
+                  </p>
+                  <p className="mt-1 text-[10px] leading-5 text-slate-400 dark:text-white/20">
+                    Your NEXUS conversations will appear here.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-1">
+                  {conversations.map((conversation) => {
+                    const active =
+                      selectedConversationId === conversation.id;
+
+                    return (
+                      <button
+                        key={conversation.id}
+                        type="button"
+                        onClick={() => void openConversation(conversation.id)}
+                        className={`w-full rounded-xl px-3 py-3 text-left transition ${
+                          active
+                            ? "border border-cyan-500/30 bg-cyan-50 text-cyan-900 dark:border-cyan-300/[0.12] dark:bg-cyan-300/[0.055] dark:text-white font-medium"
+                            : "border border-transparent text-slate-600 hover:bg-slate-100/80 hover:text-slate-900 dark:text-white/75 dark:hover:bg-white/[0.035] dark:hover:text-white"
+                        }`}
+                      >
+                        <p className="truncate text-xs font-medium">
+                          {conversation.title || "NEXUS Conversation"}
+                        </p>
+
+                        <div className="mt-1.5 flex items-center justify-between gap-2">
+                          <span className="text-[9px] text-slate-400 dark:text-white/25">
+                            {formatConversationDate(conversation.updated_at)}
+                          </span>
+
+                          <span className="text-[9px] uppercase tracking-wide text-slate-400 dark:text-white/20">
+                            {conversation.status}
+                          </span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
+        </aside>
 
-          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-2">
-            {historyLoading ? (
-              <div className="flex items-center gap-2 px-3 py-4 text-[11px] text-white/30">
-                <Loader2 size={13} className="animate-spin" />
-                Loading conversations...
-              </div>
-            ) : conversations.length === 0 ? (
-              <div className="px-3 py-8 text-center">
-                <p className="text-xs text-white/35">
-                  No previous conversations.
-                </p>
-                <p className="mt-1 text-[10px] leading-5 text-white/20">
-                  Your NEXUS conversations will appear here.
-                </p>
-              </div>
-            ) : (
-              <div className="space-y-1">
-                {conversations.map((conversation) => {
-                  const active =
-                    selectedConversationId === conversation.id;
+        <section className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden px-5 sm:px-8">
+          <div className="min-h-0 min-w-0 flex-1 flex flex-col overflow-hidden">
+            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain py-6 sm:py-8">
+              {conversationLoading ? (
+                <div className="flex min-h-[55vh] items-center justify-center">
+                  <div className="flex items-center gap-2 text-xs text-slate-400 dark:text-white/30">
+                    <Loader2 size={15} className="animate-spin" />
+                    Loading conversation...
+                  </div>
+                </div>
+              ) : messages.length === 0 ? (
+                <div className="flex min-h-full flex-col items-center justify-center px-4 text-center">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-lg shadow-cyan-500/10 dark:bg-white dark:text-black">
+                    <Sparkles size={24} />
+                  </div>
 
-                  return (
-                    <button
-                      key={conversation.id}
-                      type="button"
-                      onClick={() => void openConversation(conversation.id)}
-                      className={`w-full rounded-xl px-3 py-3 text-left transition ${
-                        active
-                          ? "border border-cyan-300/[0.12] bg-cyan-300/[0.055]"
-                          : "border border-transparent hover:bg-white/[0.035]"
-                      }`}
+                  <h1 className="mt-6 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-3xl">
+                    How can NEXUS help?
+                  </h1>
+
+                  <p className="mt-3 max-w-lg text-sm leading-6 text-slate-500 dark:text-white/35">
+                    Ask about university services, requests, receipts,
+                    certificates, transcripts, ID cards, and more.
+                  </p>
+                </div>
+              ) : (
+                <div className="mx-auto w-full max-w-[860px] space-y-7 px-4 sm:px-8">
+                  {messages.map((item) => (
+                    <div
+                      key={item.id}
+                      className={
+                        item.role === "user"
+                          ? "flex justify-end"
+                          : "flex items-start gap-3"
+                      }
                     >
-                      <p className="truncate text-xs font-medium text-white/75">
-                        {conversation.title || "NEXUS Conversation"}
-                      </p>
-
-                      <div className="mt-1.5 flex items-center justify-between gap-2">
-                        <span className="text-[9px] text-white/25">
-                          {formatConversationDate(conversation.updated_at)}
-                        </span>
-
-                        <span className="text-[9px] uppercase tracking-wide text-white/20">
-                          {conversation.status}
-                        </span>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </div>
-      </aside>
-
-      <section className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden px-5 sm:px-8">
-        <div className="min-h-0 min-w-0 flex-1 flex flex-col overflow-hidden">
-          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain py-6 sm:py-8">
-            {conversationLoading ? (
-              <div className="flex min-h-[55vh] items-center justify-center">
-              <div className="flex items-center gap-2 text-xs text-white/30">
-                <Loader2 size={15} className="animate-spin" />
-                Loading conversation...
-              </div>
-            </div>
-          ) : messages.length === 0 ? (
-            <div className="flex min-h-full flex-col items-center justify-center px-4 text-center">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-black shadow-lg shadow-cyan-500/10">
-                <Sparkles size={24} />
-              </div>
-
-              <h1 className="mt-6 text-2xl font-semibold tracking-tight sm:text-3xl">
-                How can NEXUS help?
-              </h1>
-
-              <p className="mt-3 max-w-lg text-sm leading-6 text-white/35">
-                Ask about university services, requests, receipts,
-                certificates, transcripts, ID cards, and more.
-              </p>
-            </div>
-          ) : (
-            <div className="mx-auto w-full max-w-[860px] space-y-7 px-4 sm:px-8">
-              {messages.map((item) => (
-                <div
-                  key={item.id}
-                  className={
-                    item.role === "user"
-                      ? "flex justify-end"
-                      : "flex items-start gap-3"
-                  }
-                >
-                  {item.role === "assistant" && (
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-black">
-                      <Sparkles size={16} />
-                    </div>
-                  )}
-
-                  <div
-                    className={
-                      item.role === "user"
-                        ? "max-w-[82%] rounded-2xl rounded-br-md border border-cyan-300/[0.12] bg-cyan-300/[0.055] px-4 py-3 text-sm leading-6 text-white/85"
-                        : "min-w-0 max-w-[82%]"
-                    }
-                  >
-                    {item.role === "assistant" && (
-                      <p className="mb-2 text-xs font-semibold text-white/80">
-                        NEXUS
-                      </p>
-                    )}
-
-                    <p className="whitespace-pre-wrap text-sm leading-6 text-white/65">
-                      {item.content}
-                    </p>
-
-                    {item.response &&
-                      item.response.intent !== "ERROR" && (
-                        <div className="mt-3 flex flex-wrap gap-2">
-                          <span className="rounded-lg border border-white/[0.07] px-2.5 py-1.5 text-[10px] text-white/25">
-                            Intent: {item.response.intent}
-                          </span>
-                          <span className="rounded-lg border border-white/[0.07] px-2.5 py-1.5 text-[10px] text-white/25">
-                            Confidence:{" "}
-                            {(item.response.confidence * 100).toFixed(0)}%
-                          </span>
+                      {item.role === "assistant" && (
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-slate-900 text-white shadow-sm dark:bg-white dark:text-black">
+                          <Sparkles size={16} />
                         </div>
                       )}
 
-                    {item.response?.request_id &&
-                      item.response.status !== "ERROR" && (
-                        <button
-                          type="button"
-                          onClick={() =>
-                            router.push(
-                              `/requests/${item.response?.request_id}`
-                            )
-                          }
-                          className="group mt-4 w-full overflow-hidden rounded-2xl border border-cyan-300/[0.14] bg-gradient-to-br from-cyan-300/[0.055] via-blue-400/[0.035] to-violet-400/[0.055] p-4 text-left transition hover:-translate-y-0.5 hover:border-cyan-300/[0.28] hover:bg-cyan-300/[0.07]"
-                        >
-                          <div className="flex items-center gap-3">
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-emerald-300/15 bg-emerald-300/[0.07] text-emerald-200">
-                              <CheckCircle2 size={18} />
+                      <div
+                        className={
+                          item.role === "user"
+                            ? "max-w-[82%] rounded-2xl rounded-br-md border border-cyan-500/20 bg-cyan-50 px-4 py-3 text-sm leading-6 text-slate-900 shadow-sm dark:border-cyan-300/[0.12] dark:bg-cyan-300/[0.055] dark:text-white/85"
+                            : "min-w-0 max-w-[82%]"
+                        }
+                      >
+                        {item.role === "assistant" && (
+                          <p className="mb-2 text-xs font-semibold text-slate-900 dark:text-white/80">
+                            NEXUS
+                          </p>
+                        )}
+
+                        <p className="whitespace-pre-wrap text-sm leading-6 text-slate-700 dark:text-white/65">
+                          {item.content}
+                        </p>
+
+                        {item.response &&
+                          item.response.intent !== "ERROR" && (
+                            <div className="mt-3 flex flex-wrap gap-2">
+                              <span className="rounded-lg border border-slate-200 bg-slate-100/70 px-2.5 py-1.5 text-[10px] text-slate-600 dark:border-white/[0.07] dark:bg-transparent dark:text-white/25">
+                                Intent: {item.response.intent}
+                              </span>
+                              <span className="rounded-lg border border-slate-200 bg-slate-100/70 px-2.5 py-1.5 text-[10px] text-slate-600 dark:border-white/[0.07] dark:bg-transparent dark:text-white/25">
+                                Confidence:{" "}
+                                {(item.response.confidence * 100).toFixed(0)}%
+                              </span>
                             </div>
+                          )}
 
-                            <div className="min-w-0 flex-1">
-                              <div className="flex flex-wrap items-center gap-2">
-                                <p className="text-sm font-semibold text-white/90">
-                                  Request created successfully
-                                </p>
+                        {item.response?.request_id &&
+                          item.response.status !== "ERROR" && (
+                            <button
+                              type="button"
+                              onClick={() =>
+                                router.push(
+                                  `/requests/${item.response?.request_id}`
+                                )
+                              }
+                              className="group mt-4 w-full overflow-hidden rounded-2xl border border-cyan-500/25 bg-cyan-50/50 p-4 text-left transition hover:-translate-y-0.5 hover:border-cyan-500/40 hover:bg-cyan-50 dark:border-cyan-300/[0.14] dark:bg-gradient-to-br dark:from-cyan-300/[0.055] dark:via-blue-400/[0.035] dark:to-violet-400/[0.055] dark:hover:border-cyan-300/[0.28] dark:hover:bg-cyan-300/[0.07]"
+                            >
+                              <div className="flex items-center gap-3">
+                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-50 text-emerald-600 dark:border-emerald-300/15 dark:bg-emerald-300/[0.07] dark:text-emerald-200">
+                                  <CheckCircle2 size={18} />
+                                </div>
 
-                                {item.response.status && (
-                                  <span
-                                    className={`rounded-full border px-2 py-0.5 text-[9px] font-medium uppercase tracking-wide ${getRequestStatusClass(
-                                      item.response.status
-                                    )}`}
-                                  >
-                                    {item.response.status.replaceAll(
-                                      "_",
-                                      " "
+                                <div className="min-w-0 flex-1">
+                                  <div className="flex flex-wrap items-center gap-2">
+                                    <p className="text-sm font-semibold text-slate-900 dark:text-white/90">
+                                      Request created successfully
+                                    </p>
+
+                                    {item.response.status && (
+                                      <span
+                                        className={`rounded-full border px-2 py-0.5 text-[9px] font-medium uppercase tracking-wide ${getRequestStatusClass(
+                                          item.response.status
+                                        )}`}
+                                      >
+                                        {item.response.status.replaceAll(
+                                          "_",
+                                          " "
+                                        )}
+                                      </span>
                                     )}
-                                  </span>
-                                )}
+                                  </div>
+
+                                  <p className="mt-1 text-xs text-slate-500 dark:text-white/40">
+                                    Your request has been added to your NEXUS
+                                    requests.
+                                  </p>
+
+                                  <p className="mt-2 truncate font-mono text-[10px] text-slate-400 dark:text-white/25">
+                                    {item.response.request_id}
+                                  </p>
+                                </div>
+
+                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-400 transition group-hover:border-cyan-500/30 group-hover:text-cyan-600 dark:border-white/[0.07] dark:bg-white/[0.025] dark:text-white/25 dark:group-hover:border-cyan-300/15 dark:group-hover:bg-cyan-300/[0.06] dark:group-hover:text-cyan-100/70">
+                                  <ChevronRight size={15} />
+                                </div>
                               </div>
 
-                              <p className="mt-1 text-xs text-white/40">
-                                Your request has been added to your NEXUS
-                                requests.
-                              </p>
+                              <div className="mt-3 flex items-center justify-end gap-1 text-[10px] font-medium text-cyan-600 dark:text-cyan-100/45 transition group-hover:text-cyan-700 dark:group-hover:text-cyan-100/75">
+                                View request
+                                <ArrowUpRight size={12} />
+                              </div>
+                            </button>
+                          )}
+                      </div>
+                    </div>
+                  ))}
 
-                              <p className="mt-2 truncate font-mono text-[10px] text-white/25">
-                                {item.response.request_id}
-                              </p>
-                            </div>
+                  {sending && (
+                    <div className="flex items-start gap-3">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-slate-900 text-white shadow-sm dark:bg-white dark:text-black">
+                        <Sparkles size={16} />
+                      </div>
 
-                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.025] text-white/25 transition group-hover:border-cyan-300/15 group-hover:bg-cyan-300/[0.06] group-hover:text-cyan-100/70">
-                              <ChevronRight size={15} />
-                            </div>
-                          </div>
+                      <div className="flex items-center gap-2 pt-1 text-xs text-slate-400 dark:text-white/35">
+                        <Loader2 size={14} className="animate-spin" />
+                        NEXUS is thinking...
+                      </div>
+                    </div>
+                  )}
 
-                          <div className="mt-3 flex items-center justify-end gap-1 text-[10px] font-medium text-cyan-100/45 transition group-hover:text-cyan-100/75">
-                            View request
-                            <ArrowUpRight size={12} />
-                          </div>
-                        </button>
-                      )}
-                  </div>
-                </div>
-              ))}
-
-              {sending && (
-                <div className="flex items-start gap-3">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-black">
-                    <Sparkles size={16} />
-                  </div>
-
-                  <div className="flex items-center gap-2 pt-1 text-xs text-white/35">
-                    <Loader2 size={14} className="animate-spin" />
-                    NEXUS is thinking...
-                  </div>
+                  <div ref={messagesEndRef} />
                 </div>
               )}
-
-              <div ref={messagesEndRef} />
             </div>
-            )}
+
+            <div className="sticky bottom-0 z-20 shrink-0 border-t border-slate-200/80 bg-white/80 px-0 pb-4 pt-3 backdrop-blur-xl dark:border-white/[0.05] dark:bg-[#07090d]/92 sm:pb-6">
+              <form
+                onSubmit={handleSubmit}
+                className="mx-auto flex w-[calc(100%-32px)] max-w-[760px] items-end gap-2 rounded-[28px] border border-slate-200/90 bg-white px-3 py-2.5 shadow-xl shadow-slate-200/50 backdrop-blur-xl dark:border-white/[0.10] dark:bg-[#0b0e13]/98 dark:shadow-2xl dark:shadow-black/35 sm:w-[calc(100%-56px)]"
+              >
+                <textarea
+                  ref={textareaRef}
+                  value={input}
+                  onChange={(event) => setInput(event.target.value)}
+                  onKeyDown={handleKeyDown}
+                  disabled={sending || conversationLoading}
+                  placeholder="Message NEXUS..."
+                  rows={1}
+                  className="max-h-[180px] min-h-[42px] flex-1 resize-none overflow-y-auto bg-transparent px-3 py-2 text-sm leading-6 text-slate-900 outline-none placeholder:text-slate-400 disabled:opacity-50 dark:text-white dark:placeholder:text-white/20"
+                />
+
+                <button
+                  type="submit"
+                  disabled={sending || conversationLoading || !input.trim()}
+                  aria-label="Send message"
+                  className="mb-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-900 text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-30 dark:bg-white dark:text-black dark:hover:bg-white/90"
+                >
+                  {sending ? (
+                    <Loader2 size={16} className="animate-spin" />
+                  ) : (
+                    <Send size={15} />
+                  )}
+                </button>
+              </form>
+
+              <p className="mx-auto mt-2 w-[calc(100%-32px)] max-w-[760px] px-2 text-center text-[9px] text-slate-400 dark:text-white/15 sm:w-[calc(100%-56px)]">
+                Enter to send • Shift + Enter for a new line
+              </p>
+            </div>
           </div>
-
-        <div className="sticky bottom-0 z-20 shrink-0 border-t border-white/[0.05] bg-[#07090d]/92 px-0 pb-4 pt-3 backdrop-blur-xl sm:pb-6">
-          <form
-            onSubmit={handleSubmit}
-            className="mx-auto flex w-[calc(100%-32px)] max-w-[760px] items-end gap-2 rounded-[28px] border border-white/[0.10] bg-[#0b0e13]/98 px-3 py-2.5 shadow-2xl shadow-black/35 backdrop-blur-xl sm:w-[calc(100%-56px)]"
-          >
-            <textarea
-              ref={textareaRef}
-              value={input}
-              onChange={(event) => setInput(event.target.value)}
-              onKeyDown={handleKeyDown}
-              disabled={sending || conversationLoading}
-              placeholder="Message NEXUS..."
-              rows={1}
-              className="max-h-[180px] min-h-[42px] flex-1 resize-none overflow-y-auto bg-transparent px-3 py-2 text-sm leading-6 text-white outline-none placeholder:text-white/20 disabled:opacity-50"
-            />
-
-            <button
-              type="submit"
-              disabled={sending || conversationLoading || !input.trim()}
-              aria-label="Send message"
-              className="mb-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-black transition hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-30"
-            >
-              {sending ? (
-                <Loader2 size={16} className="animate-spin" />
-              ) : (
-                <Send size={15} />
-              )}
-            </button>
-          </form>
-
-          <p className="mx-auto mt-2 w-[calc(100%-32px)] max-w-[760px] px-2 text-center text-[9px] text-white/15 sm:w-[calc(100%-56px)]">
-            Enter to send • Shift + Enter for a new line
-          </p>
-        </div>
-        </div>
-      </section>
+        </section>
       </div>
     </main>
   );

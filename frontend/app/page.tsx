@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { useEffect,useRef, useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
@@ -119,15 +120,15 @@ function getRequestUpdateText(status: string) {
 function getRequestStatusClass(status: string) {
   switch (status) {
     case "COMPLETED":
-      return "border-emerald-300/15 bg-emerald-300/[0.06] text-emerald-200";
+      return "border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:border-emerald-300/15 dark:bg-emerald-300/[0.06] dark:text-emerald-200";
     case "REJECTED":
-      return "border-rose-300/15 bg-rose-300/[0.06] text-rose-200";
+      return "border-rose-500/20 bg-rose-500/10 text-rose-700 dark:border-rose-300/15 dark:bg-rose-300/[0.06] dark:text-rose-200";
     case "PROCESSING":
-      return "border-cyan-300/15 bg-cyan-300/[0.06] text-cyan-100";
+      return "border-cyan-500/20 bg-cyan-500/10 text-cyan-800 dark:border-cyan-300/15 dark:bg-cyan-300/[0.06] dark:text-cyan-100";
     case "APPROVAL_REQUIRED":
-      return "border-amber-300/15 bg-amber-300/[0.06] text-amber-200";
+      return "border-amber-500/20 bg-amber-500/10 text-amber-800 dark:border-amber-300/15 dark:bg-amber-300/[0.06] dark:text-amber-200";
     default:
-      return "border-white/[0.07] bg-white/[0.025] text-white/45";
+      return "border-slate-200 bg-slate-100 text-slate-600 dark:border-white/[0.07] dark:bg-white/[0.025] dark:text-white/45";
   }
 }
 
@@ -439,7 +440,7 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-[#07090d] text-white">
+    <main className="min-h-screen bg-slate-50 dark:bg-[#07090d] text-slate-900 dark:text-white transition-colors duration-200">
       {/* ==================== MOBILE OVERLAY ==================== */}
 
       {sidebarOpen && (
@@ -453,7 +454,7 @@ export default function Home() {
       {/* ==================== SIDEBAR ==================== */}
 
       <aside
-        className={`fixed left-0 top-0 z-50 flex h-screen w-[260px] flex-col border-r border-white/[0.07] bg-[#0b0e13] px-5 py-6 transition-transform duration-300 lg:translate-x-0 ${
+        className={`fixed left-0 top-0 z-50 flex h-screen w-[260px] flex-col border-r border-slate-200/80 bg-white/95 backdrop-blur-xl dark:border-white/[0.07] dark:bg-[#0b0e13] px-5 py-6 transition-all duration-300 lg:translate-x-0 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -461,19 +462,19 @@ export default function Home() {
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-white text-black shadow-lg shadow-cyan-500/5">
+            <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-slate-900 text-white dark:bg-white dark:text-black shadow-lg shadow-cyan-500/10">
               <div className="absolute -inset-8 animate-[spin_5s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0deg,rgba(34,211,238,0.85)_80deg,rgba(59,130,246,0.75)_160deg,rgba(139,92,246,0.85)_240deg,transparent_320deg)] opacity-55" />
-              <div className="relative flex h-[34px] w-[34px] items-center justify-center rounded-[10px] bg-[#f7f8fa]">
+              <div className="relative flex h-[34px] w-[34px] items-center justify-center rounded-[10px] bg-slate-100 text-slate-900 dark:bg-[#f7f8fa] dark:text-black">
                 <Sparkles size={20} />
               </div>
             </div>
 
             <div>
-              <div className="text-lg font-semibold tracking-tight">
+              <div className="text-lg font-semibold tracking-tight text-slate-900 dark:text-white">
                 NEXUS
               </div>
 
-              <div className="text-[10px] uppercase tracking-[0.25em] text-white/35">
+              <div className="text-[10px] uppercase tracking-[0.25em] text-slate-400 dark:text-white/35">
                 University OS
               </div>
             </div>
@@ -483,7 +484,7 @@ export default function Home() {
 
           <button
             onClick={() => setSidebarOpen(false)}
-            className="rounded-lg p-2 text-white/50 hover:bg-white/5 hover:text-white lg:hidden"
+            className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-900 dark:text-white/50 dark:hover:bg-white/5 dark:hover:text-white lg:hidden"
           >
             <X size={18} />
           </button>
@@ -520,23 +521,23 @@ export default function Home() {
         {/* Sidebar bottom */}
 
         <div className="mt-auto">
-          <div className="mb-4 rounded-2xl border border-white/[0.07] bg-white/[0.025] p-4">
+          <div className="mb-4 rounded-2xl border border-slate-200/80 bg-slate-100/70 p-4 dark:border-white/[0.07] dark:bg-white/[0.025]">
             <div className="mb-2 flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-emerald-400" />
+              <div className="h-2 w-2 rounded-full bg-emerald-500 dark:bg-emerald-400" />
 
-              <span className="text-xs font-medium text-white/70">
+              <span className="text-xs font-medium text-slate-800 dark:text-white/70">
                 NEXUS is online
               </span>
             </div>
 
-            <p className="text-xs leading-5 text-white/35">
+            <p className="text-xs leading-5 text-slate-500 dark:text-white/35">
               Your university services are available around the clock.
             </p>
           </div>
 
           <button
             onClick={logout}
-            className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm text-white/45 transition hover:bg-white/5 hover:text-white"
+            className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 dark:text-white/45 dark:hover:bg-white/5 dark:hover:text-white"
           >
             <LogOut size={17} />
             Sign out
@@ -549,12 +550,12 @@ export default function Home() {
       <section className="lg:pl-[260px]">
         {/* ==================== HEADER ==================== */}
 
-        <header className="sticky top-0 z-30 flex h-[76px] items-center justify-between border-b border-white/[0.06] bg-[#07090d]/85 px-5 backdrop-blur-xl sm:px-8">
+        <header className="sticky top-0 z-30 flex h-[76px] items-center justify-between border-b border-slate-200/80 bg-white/80 px-5 backdrop-blur-xl dark:border-white/[0.06] dark:bg-[#07090d]/85 sm:px-8 transition-colors duration-200">
           {/* Mobile menu */}
 
           <button
             onClick={() => setSidebarOpen(true)}
-            className="rounded-xl border border-white/[0.08] p-2.5 text-white/60 hover:bg-white/5 hover:text-white lg:hidden"
+            className="rounded-xl border border-slate-200 p-2.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:border-white/[0.08] dark:text-white/60 dark:hover:bg-white/5 dark:hover:text-white lg:hidden"
           >
             <Menu size={20} />
           </button>
@@ -562,16 +563,16 @@ export default function Home() {
           {/* Breadcrumb */}
 
           <div className="hidden items-center gap-3 lg:flex">
-            <span className="text-sm text-white/35">
+            <span className="text-sm text-slate-400 dark:text-white/35">
               Workspace
             </span>
 
             <ChevronRight
               size={15}
-              className="text-white/20"
+              className="text-slate-300 dark:text-white/20"
             />
 
-            <span className="text-sm text-white/75">
+            <span className="text-sm font-medium text-slate-700 dark:text-white/75">
               Dashboard
             </span>
           </div>
@@ -579,6 +580,8 @@ export default function Home() {
           {/* Right side */}
 
           <div className="ml-auto flex items-center gap-3">
+            <ThemeToggle />
+
             <div className="relative" data-notification-menu>
               <button
                 type="button"
@@ -588,50 +591,50 @@ export default function Home() {
                 aria-haspopup="menu"
                 className={`relative rounded-xl border p-2.5 transition ${
                   notificationsOpen
-                    ? "border-cyan-300/20 bg-cyan-300/[0.06] text-white"
-                    : "border-white/[0.07] text-white/55 hover:bg-white/5 hover:text-white"
+                    ? "border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:border-cyan-300/20 dark:bg-cyan-300/[0.06] dark:text-white"
+                    : "border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:border-white/[0.07] dark:text-white/55 dark:hover:bg-white/5 dark:hover:text-white"
                 }`}
               >
                 <Bell size={18} />
-                <span className={`absolute -right-1 -top-1 flex min-h-4 min-w-4 items-center justify-center rounded-full px-1 text-[8px] font-semibold ${unreadNotifications > 0 ? "bg-rose-400 text-black" : "border border-white/[0.08] bg-white/[0.08] text-white/45"}`}>
+                <span className={`absolute -right-1 -top-1 flex min-h-4 min-w-4 items-center justify-center rounded-full px-1 text-[8px] font-semibold ${unreadNotifications > 0 ? "bg-rose-500 text-white dark:bg-rose-400 dark:text-black" : "border border-slate-200 bg-slate-100 text-slate-500 dark:border-white/[0.08] dark:bg-white/[0.08] dark:text-white/45"}`}>
                   {unreadNotifications > 99 ? "99+" : unreadNotifications}
                 </span>
               </button>
 
               {notificationsOpen && (
-                <div role="menu" className="fixed left-2 right-2 top-[84px] z-50 w-auto overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0b0e13]/95 shadow-2xl shadow-black/50 backdrop-blur-xl sm:absolute sm:left-auto sm:right-0 sm:top-[calc(100%+10px)] sm:w-[380px] sm:max-w-[calc(100vw-2rem)]">
-                  <div className="flex items-center justify-between border-b border-white/[0.07] px-4 py-3">
+                <div role="menu" className="fixed left-2 right-2 top-[84px] z-50 w-auto overflow-hidden rounded-2xl border border-slate-200 bg-white/95 shadow-2xl shadow-slate-900/10 backdrop-blur-xl dark:border-white/[0.08] dark:bg-[#0b0e13]/95 dark:shadow-black/50 sm:absolute sm:left-auto sm:right-0 sm:top-[calc(100%+10px)] sm:w-[380px] sm:max-w-[calc(100vw-2rem)]">
+                  <div className="flex items-center justify-between border-b border-slate-200/80 px-4 py-3 dark:border-white/[0.07]">
                     <div>
-                      <p className="text-sm font-semibold text-white">Notifications</p>
-                      <p className="mt-0.5 text-[10px] text-white/30">{unreadNotifications > 0 ? `${unreadNotifications} unread` : "You're all caught up"}</p>
+                      <p className="text-sm font-semibold text-slate-900 dark:text-white">Notifications</p>
+                      <p className="mt-0.5 text-[10px] text-slate-400 dark:text-white/30">{unreadNotifications > 0 ? `${unreadNotifications} unread` : "You're all caught up"}</p>
                     </div>
-                    <button type="button" onClick={markAllNotificationsRead} disabled={markingNotificationsRead || unreadNotifications === 0} className="text-[10px] font-medium text-cyan-100/60 transition hover:text-cyan-100 disabled:cursor-not-allowed disabled:text-white/20">
+                    <button type="button" onClick={markAllNotificationsRead} disabled={markingNotificationsRead || unreadNotifications === 0} className="text-[10px] font-medium text-cyan-600 dark:text-cyan-100/60 transition hover:text-cyan-700 dark:hover:text-cyan-100 disabled:cursor-not-allowed disabled:text-slate-300 dark:disabled:text-white/20">
                       {markingNotificationsRead ? "Marking..." : "Mark all as read"}
                     </button>
                   </div>
 
                   <div className="max-h-[390px] overflow-y-auto p-2">
                     {notificationsLoading ? (
-                      <div className="flex min-h-[120px] items-center justify-center gap-2 text-xs text-white/30"><RefreshCw size={14} className="animate-spin" />Loading notifications...</div>
+                      <div className="flex min-h-[120px] items-center justify-center gap-2 text-xs text-slate-400 dark:text-white/30"><RefreshCw size={14} className="animate-spin" />Loading notifications...</div>
                     ) : notifications.length === 0 ? (
                       <div className="flex min-h-[150px] flex-col items-center justify-center px-5 text-center">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.07] bg-white/[0.025]"><Bell size={17} className="text-white/20" /></div>
-                        <p className="mt-3 text-xs font-medium text-white/45">No notifications yet</p>
-                        <p className="mt-1 max-w-[240px] text-[10px] leading-5 text-white/20">Updates from your university requests will appear here.</p>
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 dark:border-white/[0.07] dark:bg-white/[0.025]"><Bell size={17} className="text-slate-400 dark:text-white/20" /></div>
+                        <p className="mt-3 text-xs font-medium text-slate-600 dark:text-white/45">No notifications yet</p>
+                        <p className="mt-1 max-w-[240px] text-[10px] leading-5 text-slate-400 dark:text-white/20">Updates from your university requests will appear here.</p>
                       </div>
                     ) : (
                       <div className="space-y-1">
                         {notifications.slice(0, 8).map((notification) => (
-                          <button key={notification.id} type="button" role="menuitem" onClick={() => { setNotificationsOpen(false); openNotification(notification); }} className={`group flex w-full items-start gap-3 rounded-xl p-3 text-left transition ${notification.is_read ? "hover:bg-white/[0.035]" : "bg-cyan-300/[0.045] hover:bg-cyan-300/[0.07]"}`}>
-                            <div className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border ${notification.notification_type === "REQUEST_COMPLETED" ? "border-emerald-300/15 bg-emerald-300/[0.06] text-emerald-200/75" : notification.notification_type === "REQUEST_REJECTED" ? "border-rose-300/15 bg-rose-300/[0.06] text-rose-200/75" : "border-cyan-300/10 bg-cyan-300/[0.05] text-cyan-100/70"}`}>
+                          <button key={notification.id} type="button" role="menuitem" onClick={() => { setNotificationsOpen(false); openNotification(notification); }} className={`group flex w-full items-start gap-3 rounded-xl p-3 text-left transition ${notification.is_read ? "hover:bg-slate-50 dark:hover:bg-white/[0.035]" : "bg-cyan-50/70 dark:bg-cyan-300/[0.045] hover:bg-cyan-50 dark:hover:bg-cyan-300/[0.07]"}`}>
+                            <div className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border ${notification.notification_type === "REQUEST_COMPLETED" ? "border-emerald-500/20 bg-emerald-50 text-emerald-600 dark:border-emerald-300/15 dark:bg-emerald-300/[0.06] dark:text-emerald-200/75" : notification.notification_type === "REQUEST_REJECTED" ? "border-rose-500/20 bg-rose-50 text-rose-600 dark:border-rose-300/15 dark:bg-rose-300/[0.06] dark:text-rose-200/75" : "border-cyan-500/20 bg-cyan-50 text-cyan-600 dark:border-cyan-300/10 dark:bg-cyan-300/[0.05] dark:text-cyan-100/70"}`}>
                               {notification.notification_type === "REQUEST_COMPLETED" ? <CheckCircle2 size={14} /> : notification.notification_type === "REQUEST_REJECTED" ? <Info size={14} /> : <Clock3 size={14} />}
                             </div>
                             <div className="min-w-0 flex-1">
-                              <div className="flex items-start gap-2"><p className={`line-clamp-1 text-xs ${notification.is_read ? "font-medium text-white/65" : "font-semibold text-white/90"}`}>{notification.title}</p>{!notification.is_read && <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300" />}</div>
-                              <p className="mt-1 line-clamp-2 text-[10px] leading-4 text-white/35">{notification.message}</p>
-                              <p className="mt-1 text-[9px] text-white/20">{new Date(notification.created_at).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</p>
+                              <div className="flex items-start gap-2"><p className={`line-clamp-1 text-xs ${notification.is_read ? "font-medium text-slate-700 dark:text-white/65" : "font-semibold text-slate-900 dark:text-white/90"}`}>{notification.title}</p>{!notification.is_read && <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-300" />}</div>
+                              <p className="mt-1 line-clamp-2 text-[10px] leading-4 text-slate-500 dark:text-white/35">{notification.message}</p>
+                              <p className="mt-1 text-[9px] text-slate-400 dark:text-white/20">{new Date(notification.created_at).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</p>
                             </div>
-                            <ChevronRight size={14} className="mt-1 shrink-0 text-white/15 transition group-hover:translate-x-0.5 group-hover:text-cyan-100/60" />
+                            <ChevronRight size={14} className="mt-1 shrink-0 text-slate-300 dark:text-white/15 transition group-hover:translate-x-0.5 group-hover:text-cyan-600 dark:group-hover:text-cyan-100/60" />
                           </button>
                         ))}
                       </div>
@@ -639,13 +642,13 @@ export default function Home() {
                   </div>
 
                   {notifications.length > 8 && (
-                    <div className="border-t border-white/[0.07] p-2"><button type="button" onClick={() => { setNotificationsOpen(false); updatesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }); }} className="flex w-full items-center justify-center gap-1 rounded-xl px-3 py-2 text-[10px] font-medium text-cyan-100/50 transition hover:bg-white/[0.035] hover:text-cyan-100">View all notifications<ChevronRight size={12} /></button></div>
+                    <div className="border-t border-slate-200 px-2 py-2 dark:border-white/[0.07]"><button type="button" onClick={() => { setNotificationsOpen(false); updatesRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }); }} className="flex w-full items-center justify-center gap-1 rounded-xl px-3 py-2 text-[10px] font-medium text-cyan-600 dark:text-cyan-100/50 transition hover:bg-slate-100 dark:hover:bg-white/[0.035] hover:text-cyan-700 dark:hover:text-cyan-100">View all notifications<ChevronRight size={12} /></button></div>
                   )}
                 </div>
               )}
             </div>
 
-            <div className="hidden h-8 w-px bg-white/[0.08] sm:block" />
+            <div className="hidden h-8 w-px bg-slate-200 dark:bg-white/[0.08] sm:block" />
 
             <div className="relative">
               <button
@@ -653,19 +656,19 @@ export default function Home() {
                 onClick={() => setProfileOpen((open) => !open)}
                 aria-expanded={profileOpen}
                 aria-haspopup="menu"
-                className="flex items-center gap-2 rounded-xl px-2 py-1.5 transition hover:bg-white/5"
+                className="flex items-center gap-2 rounded-xl px-2 py-1.5 transition hover:bg-slate-100 dark:hover:bg-white/5"
               >
                 <div className="hidden text-right sm:block">
-                  <div className="text-sm font-medium">
+                  <div className="text-sm font-medium text-slate-800 dark:text-white">
                     {studentName}
                   </div>
 
-                  <div className="text-[11px] text-white/35">
+                  <div className="text-[11px] text-slate-400 dark:text-white/35">
                     Student
                   </div>
                 </div>
 
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-white to-white/60 text-sm font-semibold text-black">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-slate-900 to-slate-700 text-white dark:from-white dark:to-white/60 dark:text-black text-sm font-semibold shadow-sm">
                   {studentName
                     .split(" ")
                     .filter(Boolean)
@@ -677,7 +680,7 @@ export default function Home() {
 
                 <ChevronDown
                   size={14}
-                  className={`hidden text-white/30 transition sm:block ${
+                  className={`hidden text-slate-400 dark:text-white/30 transition sm:block ${
                     profileOpen ? "rotate-180" : ""
                   }`}
                 />
@@ -686,11 +689,11 @@ export default function Home() {
               {profileOpen && (
                 <div
                   role="menu"
-                  className="absolute right-0 top-[calc(100%+10px)] z-50 w-60 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0b0e13]/95 p-2 shadow-2xl shadow-black/40 backdrop-blur-xl"
+                  className="absolute right-0 top-[calc(100%+10px)] z-50 w-60 overflow-hidden rounded-2xl border border-slate-200 bg-white/95 p-2 shadow-2xl shadow-slate-900/10 backdrop-blur-xl dark:border-white/[0.08] dark:bg-[#0b0e13]/95 dark:shadow-black/40"
                 >
-                  <div className="rounded-xl border border-white/[0.06] bg-white/[0.025] px-3 py-3">
+                  <div className="rounded-xl border border-slate-100 bg-slate-50 px-3 py-3 dark:border-white/[0.06] dark:bg-white/[0.025]">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-sm font-semibold text-black">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-900 text-white dark:bg-white text-sm font-semibold dark:text-black">
                         {studentName
                           .split(" ")
                           .filter(Boolean)
@@ -700,10 +703,10 @@ export default function Home() {
                           .toUpperCase() || "S"}
                       </div>
                       <div className="min-w-0">
-                        <p className="truncate text-sm font-medium text-white">
+                        <p className="truncate text-sm font-medium text-slate-900 dark:text-white">
                           {studentName}
                         </p>
-                        <p className="mt-0.5 text-[10px] uppercase tracking-[0.14em] text-cyan-200/40">
+                        <p className="mt-0.5 text-[10px] uppercase tracking-[0.14em] text-cyan-600 dark:text-cyan-200/40">
                           Student account
                         </p>
                       </div>
@@ -717,7 +720,7 @@ export default function Home() {
                       setProfileOpen(false);
                       router.push("/student");
                     }}
-                    className="mt-2 flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-xs text-white/50 transition hover:bg-white/5 hover:text-white"
+                    className="mt-2 flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-xs text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 dark:text-white/50 dark:hover:bg-white/5 dark:hover:text-white"
                   >
                     <UserCircle size={16} />
                     My account
@@ -727,7 +730,7 @@ export default function Home() {
                     type="button"
                     role="menuitem"
                     onClick={logout}
-                    className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-xs text-rose-200/65 transition hover:bg-rose-400/[0.06] hover:text-rose-100"
+                    className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-xs text-rose-600 transition hover:bg-rose-50 hover:text-rose-700 dark:text-rose-200/65 dark:hover:bg-rose-400/[0.06] dark:hover:text-rose-100"
                   >
                     <LogOut size={16} />
                     Sign out
@@ -744,15 +747,15 @@ export default function Home() {
           {/* ==================== GREETING ==================== */}
 
           <div>
-            <p className="mb-2 text-sm font-medium text-white/35">
+            <p className="mb-2 text-sm font-medium text-slate-500 dark:text-white/35">
               University workspace
             </p>
 
-            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+            <h1 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
               Good morning, {studentName.split(" ")[0]}.
             </h1>
 
-            <p className="mt-3 max-w-xl text-sm leading-6 text-white/40">
+            <p className="mt-3 max-w-xl text-sm leading-6 text-slate-600 dark:text-white/40">
               Your university, simplified. Ask NEXUS for anything
               you need and let it handle the workflow for you.
             </p>
@@ -760,22 +763,22 @@ export default function Home() {
 
           {/* ==================== ASK NEXUS ==================== */}
 
-          <div className="group relative mt-10 overflow-hidden rounded-[28px] border border-white/[0.09] bg-gradient-to-br from-white/[0.075] to-white/[0.025] p-5 shadow-2xl shadow-black/20 sm:p-7">
-            <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-white/[0.04] blur-3xl transition duration-700 group-hover:bg-white/[0.07]" />
+          <div className="group relative mt-10 overflow-hidden rounded-[28px] border border-slate-200/80 bg-white p-5 shadow-xl shadow-slate-200/40 backdrop-blur-xl dark:border-white/[0.09] dark:bg-[#0c0f16] dark:shadow-2xl dark:shadow-black/40 sm:p-7">
+            <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-cyan-500/[0.06] blur-3xl transition duration-700 group-hover:bg-cyan-500/[0.1] dark:bg-cyan-400/[0.04] dark:group-hover:bg-cyan-400/[0.07]" />
 
             <div className="relative">
               {/* Card heading */}
 
               <div className="mb-5 flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-black">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-900 text-white shadow-sm dark:bg-white dark:text-black">
                   <Sparkles size={15} />
                 </div>
 
-                <span className="text-sm font-medium">
+                <span className="text-sm font-semibold text-slate-900 dark:text-white">
                   Ask NEXUS
                 </span>
 
-                <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2 py-0.5 text-[10px] font-medium text-emerald-300">
+                <span className="rounded-full border border-emerald-500/20 bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-700 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-300">
                   ONLINE
                 </span>
               </div>
@@ -789,11 +792,6 @@ export default function Home() {
                   setMessage(event.target.value)
                 }
                 onKeyDown={(event) => {
-                  /*
-                   * Enter = send
-                   * Shift + Enter = new line
-                   */
-
                   if (
                     event.key === "Enter" &&
                     !event.shiftKey
@@ -803,20 +801,20 @@ export default function Home() {
                   }
                 }}
                 placeholder="What can I help you with today?"
-                className="min-h-[110px] w-full resize-none bg-transparent text-lg font-medium outline-none placeholder:text-white/20"
+                className="min-h-[110px] w-full resize-none bg-transparent text-lg font-medium text-slate-900 outline-none placeholder:text-slate-400 dark:text-white dark:placeholder:text-white/20"
               />
 
               {/* Bottom controls */}
 
-              <div className="mt-5 flex flex-col gap-4 border-t border-white/[0.07] pt-4 sm:flex-row sm:items-center sm:justify-between">
-                <span className="text-xs text-white/25">
+              <div className="mt-5 flex flex-col gap-4 border-t border-slate-200/80 pt-4 dark:border-white/[0.07] sm:flex-row sm:items-center sm:justify-between">
+                <span className="text-xs text-slate-400 dark:text-white/25">
                   Press Enter to send • Shift + Enter for a new line
                 </span>
 
                 <button
                   onClick={() => sendMessage()}
                   disabled={loading || !message.trim()}
-                  className="group relative flex items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-400 px-5 py-2.5 text-sm font-semibold text-black shadow-lg shadow-cyan-500/10 transition duration-300 hover:-translate-y-0.5 hover:shadow-cyan-500/20 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-40"
+                  className="group relative flex items-center justify-center gap-2 overflow-hidden rounded-xl bg-slate-900 text-white hover:bg-slate-800 dark:bg-gradient-to-r dark:from-cyan-300 dark:via-blue-400 dark:to-violet-400 px-5 py-2.5 text-sm font-semibold dark:text-black shadow-lg shadow-cyan-500/10 transition duration-300 hover:-translate-y-0.5 hover:shadow-cyan-500/20 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   {loading ? "Processing..." : "Send request"}
 
@@ -829,11 +827,11 @@ export default function Home() {
           {/* ==================== NEXUS RESPONSE ==================== */}
 
           {response && (
-            <div className="mt-4 rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5">
+            <div className="mt-4 rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm dark:border-white/[0.08] dark:bg-[#0c0f16]">
               <div className="flex items-start gap-3">
                 {/* Icon */}
 
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-black">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-slate-900 text-white dark:bg-white dark:text-black">
                   <Sparkles size={16} />
                 </div>
 
@@ -841,12 +839,12 @@ export default function Home() {
                   {/* Header */}
 
                   <div className="mb-2 flex flex-wrap items-center gap-2">
-                    <span className="text-sm font-semibold">
+                    <span className="text-sm font-semibold text-slate-900 dark:text-white">
                       NEXUS
                     </span>
 
                     {response.status && (
-                      <span className="rounded-full bg-amber-400/10 px-2.5 py-1 text-[10px] font-medium text-amber-300">
+                      <span className="rounded-full bg-amber-500/10 px-2.5 py-1 text-[10px] font-medium text-amber-700 dark:bg-amber-400/10 dark:text-amber-300">
                         {response.status}
                       </span>
                     )}
@@ -854,19 +852,19 @@ export default function Home() {
 
                   {/* Message */}
 
-                  <p className="text-sm leading-6 text-white/65">
+                  <p className="text-sm leading-6 text-slate-700 dark:text-white/65">
                     {response.message}
                   </p>
 
                   {/* Metadata */}
 
                   {response.intent !== "ERROR" && (
-                    <div className="mt-4 flex flex-wrap gap-2 text-[11px] text-white/30">
-                      <span className="rounded-lg border border-white/[0.07] px-2.5 py-1.5">
+                    <div className="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-400 dark:text-white/30">
+                      <span className="rounded-lg border border-slate-200 px-2.5 py-1.5 dark:border-white/[0.07]">
                         Intent: {response.intent}
                       </span>
 
-                      <span className="rounded-lg border border-white/[0.07] px-2.5 py-1.5">
+                      <span className="rounded-lg border border-slate-200 px-2.5 py-1.5 dark:border-white/[0.07]">
                         Confidence:{" "}
                         {(response.confidence * 100).toFixed(0)}%
                       </span>
@@ -881,16 +879,16 @@ export default function Home() {
                       onClick={() =>
                         router.push(`/requests/${response.request_id}`)
                       }
-                      className="group mt-5 w-full overflow-hidden rounded-2xl border border-cyan-300/[0.14] bg-gradient-to-br from-cyan-300/[0.055] via-blue-400/[0.035] to-violet-400/[0.055] p-4 text-left transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300/[0.28] hover:bg-cyan-300/[0.07] hover:shadow-lg hover:shadow-cyan-500/[0.06]"
+                      className="group mt-5 w-full overflow-hidden rounded-2xl border border-cyan-500/20 bg-cyan-50/50 p-4 text-left transition duration-300 hover:-translate-y-0.5 hover:border-cyan-500/40 hover:bg-cyan-50 hover:shadow-lg dark:border-cyan-300/[0.14] dark:bg-[#0e131d] dark:hover:border-cyan-300/[0.28] dark:hover:bg-[#131926] dark:hover:shadow-cyan-500/[0.06]"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-emerald-300/15 bg-emerald-300/[0.07] text-emerald-200">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-50 text-emerald-600 dark:border-emerald-300/15 dark:bg-emerald-300/[0.07] dark:text-emerald-200">
                           <CheckCircle2 size={18} />
                         </div>
 
                         <div className="min-w-0 flex-1">
                           <div className="flex flex-wrap items-center gap-2">
-                            <p className="text-sm font-semibold text-white/90">
+                            <p className="text-sm font-semibold text-slate-900 dark:text-white/90">
                               Request created successfully
                             </p>
 
@@ -905,21 +903,21 @@ export default function Home() {
                             )}
                           </div>
 
-                          <p className="mt-1 text-xs text-white/40">
+                          <p className="mt-1 text-xs text-slate-500 dark:text-white/40">
                             Your request has been added to your NEXUS requests.
                           </p>
 
-                          <p className="mt-2 truncate font-mono text-[10px] text-white/25">
+                          <p className="mt-2 truncate font-mono text-[10px] text-slate-400 dark:text-white/25">
                             {response.request_id}
                           </p>
                         </div>
 
-                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.025] text-white/25 transition group-hover:border-cyan-300/15 group-hover:bg-cyan-300/[0.06] group-hover:text-cyan-100/70">
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-400 transition group-hover:border-cyan-500/30 group-hover:text-cyan-600 dark:border-white/[0.07] dark:bg-white/[0.025] dark:text-white/25 dark:group-hover:border-cyan-300/15 dark:group-hover:bg-cyan-300/[0.06] dark:group-hover:text-cyan-100/70">
                           <ChevronRight size={15} />
                         </div>
                       </div>
 
-                      <div className="mt-3 flex items-center justify-end gap-1 text-[10px] font-medium text-cyan-100/45 transition group-hover:text-cyan-100/75">
+                      <div className="mt-3 flex items-center justify-end gap-1 text-[10px] font-medium text-cyan-600 dark:text-cyan-100/45 transition group-hover:text-cyan-700 dark:group-hover:text-cyan-100/75">
                         View request
                         <ArrowUpRight size={12} />
                       </div>
@@ -968,11 +966,11 @@ export default function Home() {
           >
             <div className="mb-5 flex items-end justify-between gap-4">
               <div>
-                <h2 className="text-lg font-semibold">
+                <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
                   Recent updates
                 </h2>
 
-                <p className="mt-1 text-xs text-white/30">
+                <p className="mt-1 text-xs text-slate-400 dark:text-white/30">
                   Important updates from your university requests.
                 </p>
               </div>
@@ -983,7 +981,7 @@ export default function Home() {
                     type="button"
                     onClick={markAllNotificationsRead}
                     disabled={markingNotificationsRead}
-                    className="text-xs text-cyan-100/55 transition hover:text-cyan-100 disabled:cursor-not-allowed disabled:opacity-40"
+                    className="text-xs text-cyan-600 dark:text-cyan-100/55 transition hover:text-cyan-700 dark:hover:text-cyan-100 disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     {markingNotificationsRead
                       ? "Marking..."
@@ -994,7 +992,7 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => router.push("/requests")}
-                  className="flex items-center gap-1 text-xs text-cyan-100/45 transition hover:text-cyan-100"
+                  className="flex items-center gap-1 text-xs text-cyan-600 dark:text-cyan-100/45 transition hover:text-cyan-700 dark:hover:text-cyan-100"
                 >
                   View all
                   <ChevronRight size={13} />
@@ -1002,19 +1000,19 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-white/[0.07] bg-white/[0.018] p-4 sm:p-5">
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-4 shadow-sm dark:border-white/[0.07] dark:bg-[#0c0f16] sm:p-5">
               {notificationsLoading ? (
-                <div className="flex min-h-[110px] items-center justify-center gap-3 text-xs text-white/30">
+                <div className="flex min-h-[110px] items-center justify-center gap-3 text-xs text-slate-400 dark:text-white/30">
                   <RefreshCw size={15} className="animate-spin" />
                   Loading updates...
                 </div>
               ) : notifications.length === 0 ? (
                 <div className="flex min-h-[110px] flex-col items-center justify-center text-center">
-                  <Bell size={19} className="text-white/20" />
-                  <p className="mt-3 text-sm text-white/45">
+                  <Bell size={19} className="text-slate-300 dark:text-white/20" />
+                  <p className="mt-3 text-sm text-slate-600 dark:text-white/45">
                     No notifications yet
                   </p>
-                  <p className="mt-1 text-xs text-white/20">
+                  <p className="mt-1 text-xs text-slate-400 dark:text-white/20">
                     Updates from your requests will appear here.
                   </p>
                 </div>
@@ -1027,11 +1025,11 @@ export default function Home() {
                       onClick={() => openNotification(notification)}
                       className={`group flex w-full items-start gap-3 rounded-xl border p-3 text-left transition ${
                         notification.is_read
-                          ? "border-white/[0.055] bg-white/[0.018] hover:border-white/[0.11] hover:bg-white/[0.03]"
-                          : "border-cyan-300/[0.12] bg-cyan-300/[0.035] hover:border-cyan-300/[0.2] hover:bg-cyan-300/[0.05]"
+                          ? "border-slate-200/70 bg-slate-50/70 hover:border-slate-300 hover:bg-slate-100/80 dark:border-white/[0.055] dark:bg-[#0e131d] dark:hover:border-white/[0.11] dark:hover:bg-[#131926]"
+                          : "border-cyan-500/20 bg-cyan-50/60 hover:border-cyan-500/30 hover:bg-cyan-50 dark:border-cyan-300/[0.12] dark:bg-[#0e131d] dark:hover:border-cyan-300/[0.2] dark:hover:bg-[#131926]"
                       }`}
                     >
-                      <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-cyan-300/10 bg-cyan-300/[0.05] text-cyan-100/70">
+                      <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-cyan-500/20 bg-cyan-50 text-cyan-600 dark:border-cyan-300/10 dark:bg-cyan-300/[0.05] dark:text-cyan-100/70">
                         {notification.notification_type ===
                         "REQUEST_COMPLETED" ? (
                           <CheckCircle2 size={15} />
@@ -1048,23 +1046,23 @@ export default function Home() {
                           <p
                             className={`text-xs ${
                               notification.is_read
-                                ? "font-medium text-white/70"
-                                : "font-semibold text-white/90"
+                                ? "font-medium text-slate-700 dark:text-white/70"
+                                : "font-semibold text-slate-900 dark:text-white/90"
                             }`}
                           >
                             {notification.title}
                           </p>
 
                           {!notification.is_read && (
-                            <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300" />
+                            <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500 dark:bg-cyan-300" />
                           )}
                         </div>
 
-                        <p className="mt-1 text-[11px] leading-5 text-white/40">
+                        <p className="mt-1 text-[11px] leading-5 text-slate-500 dark:text-white/40">
                           {notification.message}
                         </p>
 
-                        <p className="mt-1 text-[10px] text-white/20">
+                        <p className="mt-1 text-[10px] text-slate-400 dark:text-white/20">
                           {new Date(
                             notification.created_at
                           ).toLocaleString("en-IN", {
@@ -1079,7 +1077,7 @@ export default function Home() {
 
                       <ChevronRight
                         size={15}
-                        className="mt-2 shrink-0 text-white/15 transition group-hover:translate-x-0.5 group-hover:text-cyan-100/60"
+                        className="mt-2 shrink-0 text-slate-300 dark:text-white/15 transition group-hover:translate-x-0.5 group-hover:text-cyan-600 dark:group-hover:text-cyan-100/60"
                       />
                     </button>
                   ))}
@@ -1092,11 +1090,11 @@ export default function Home() {
 
           <section className="mt-12">
             <div className="mb-5">
-              <h2 className="text-lg font-semibold">
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
                 Quick services
               </h2>
 
-              <p className="mt-1 text-xs text-white/30">
+              <p className="mt-1 text-xs text-slate-400 dark:text-white/30">
                 Common things students ask NEXUS to handle.
               </p>
             </div>
@@ -1110,30 +1108,26 @@ export default function Home() {
                     key={service.title}
                     onClick={() => {
                       setMessage(service.message);
-
-                      /*
-                       * Scroll back to the chat box.
-                       */
                       window.scrollTo({
                         top: 0,
                         behavior: "smooth",
                       });
                     }}
-                    className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.025] p-5 text-left transition duration-300 hover:-translate-y-1 hover:border-cyan-300/15 hover:bg-white/[0.04]"
+                    className="group relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-5 text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:border-cyan-500/30 hover:shadow-md dark:border-white/[0.07] dark:bg-[#0c0f16] dark:hover:border-cyan-300/15 dark:hover:bg-[#101520]"
                   >
-                    <div className="mb-7 flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.035] text-white/65 transition group-hover:bg-white group-hover:text-black">
+                    <div className="mb-7 flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-700 transition group-hover:bg-slate-900 group-hover:text-white dark:border-white/[0.08] dark:bg-[#151a26] dark:text-white/65 dark:group-hover:bg-white dark:group-hover:text-black">
                       <Icon size={18} />
                     </div>
 
-                    <h3 className="text-sm font-medium">
+                    <h3 className="text-sm font-medium text-slate-900 dark:text-white">
                       {service.title}
                     </h3>
 
-                    <p className="mt-1.5 text-xs leading-5 text-white/30">
+                    <p className="mt-1.5 text-xs leading-5 text-slate-500 dark:text-white/30">
                       {service.description}
                     </p>
 
-                    <div className="mt-5 flex items-center gap-1 text-[11px] text-white/25 transition group-hover:text-white/60">
+                    <div className="mt-5 flex items-center gap-1 text-[11px] text-slate-400 transition group-hover:text-slate-900 dark:text-white/25 dark:group-hover:text-white/60">
                       Use service
                       <ArrowUpRight size={13} />
                     </div>
@@ -1148,11 +1142,11 @@ export default function Home() {
           <section className="mt-12">
             <div className="mb-5 flex items-end justify-between">
               <div>
-                <h2 className="text-lg font-semibold">
+                <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
                   Recent requests
                 </h2>
 
-                <p className="mt-1 text-xs text-white/30">
+                <p className="mt-1 text-xs text-slate-400 dark:text-white/30">
                   Keep track of everything NEXUS is handling.
                 </p>
               </div>
@@ -1160,26 +1154,26 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => router.push("/requests")}
-                className="flex items-center gap-1 text-xs text-white/40 transition hover:text-white"
+                className="flex items-center gap-1 text-xs text-slate-500 transition hover:text-slate-900 dark:text-white/40 dark:hover:text-white"
               >
                 View history
                 <ChevronRight size={14} />
               </button>
             </div>
 
-            <div className="rounded-2xl border border-white/[0.07] bg-white/[0.018] p-4 sm:p-5">
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-4 shadow-sm dark:border-white/[0.07] dark:bg-[#0c0f16] sm:p-5">
               {requestsLoading ? (
-                <div className="flex min-h-[120px] items-center justify-center gap-3 text-xs text-white/30">
+                <div className="flex min-h-[120px] items-center justify-center gap-3 text-xs text-slate-400 dark:text-white/30">
                   <RefreshCw size={15} className="animate-spin" />
                   Loading recent requests...
                 </div>
               ) : requests.length === 0 ? (
                 <div className="flex min-h-[120px] flex-col items-center justify-center text-center">
-                  <FileText size={20} className="text-white/20" />
-                  <p className="mt-3 text-sm text-white/45">
+                  <FileText size={20} className="text-slate-300 dark:text-white/20" />
+                  <p className="mt-3 text-sm text-slate-600 dark:text-white/45">
                     No requests yet
                   </p>
-                  <p className="mt-1 text-xs text-white/20">
+                  <p className="mt-1 text-xs text-slate-400 dark:text-white/20">
                     Your NEXUS service activity will appear here.
                   </p>
                 </div>
@@ -1191,40 +1185,40 @@ export default function Home() {
                       onClick={() =>
                         router.push(`/requests/${request.id}`)
                       }
-                      className="group relative flex w-full items-center gap-3 overflow-hidden rounded-xl border border-white/[0.055] bg-white/[0.018] p-3 text-left transition duration-300 hover:-translate-y-0.5 hover:border-white/[0.12] hover:bg-white/[0.035]"
+                      className="group relative flex w-full items-center gap-3 overflow-hidden rounded-xl border border-slate-200/70 bg-slate-50/70 p-3 text-left transition duration-300 hover:-translate-y-0.5 hover:border-slate-300 hover:bg-slate-100/80 dark:border-white/[0.055] dark:bg-[#0e131d] dark:hover:border-white/[0.12] dark:hover:bg-[#131926]"
                     >
                       <div
                         className={`h-9 w-1 shrink-0 rounded-full ${
                           request.status === "PROCESSING"
-                            ? "bg-gradient-to-b from-cyan-300 via-blue-400 to-violet-400"
+                            ? "bg-gradient-to-b from-cyan-400 via-blue-500 to-violet-500 dark:from-cyan-300 dark:via-blue-400 dark:to-violet-400"
                             : request.status === "COMPLETED"
-                            ? "bg-emerald-300/70"
+                            ? "bg-emerald-500 dark:bg-emerald-300/70"
                             : request.status === "REJECTED"
-                            ? "bg-rose-300/70"
+                            ? "bg-rose-500 dark:bg-rose-300/70"
                             : request.status === "APPROVAL_REQUIRED"
-                            ? "bg-amber-300/70"
-                            : "bg-white/15"
+                            ? "bg-amber-500 dark:bg-amber-300/70"
+                            : "bg-slate-300 dark:bg-white/15"
                         }`}
                       />
 
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.025]">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white dark:border-white/[0.07] dark:bg-[#151a26]">
                         {request.status === "COMPLETED" ? (
-                          <CheckCircle2 size={15} className="text-emerald-200/70" />
+                          <CheckCircle2 size={15} className="text-emerald-600 dark:text-emerald-200/70" />
                         ) : request.status === "PROCESSING" ? (
-                          <Clock3 size={15} className="animate-pulse text-cyan-200/70" />
+                          <Clock3 size={15} className="animate-pulse text-cyan-600 dark:text-cyan-200/70" />
                         ) : (
-                          <FileText size={15} className="text-white/35" />
+                          <FileText size={15} className="text-slate-400 dark:text-white/35" />
                         )}
                       </div>
 
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-xs font-medium text-white/80">
+                        <p className="truncate text-xs font-medium text-slate-800 dark:text-white/80">
                           {request.service_name
                             .replaceAll("_", " ")
                             .toLowerCase()
                             .replace(/\b\w/g, (letter) => letter.toUpperCase())}
                         </p>
-                        <p className="mt-1 text-[10px] text-white/25">
+                        <p className="mt-1 text-[10px] text-slate-400 dark:text-white/25">
                           {new Date(request.created_at).toLocaleDateString("en-IN", {
                             day: "numeric",
                             month: "short",
@@ -1234,24 +1228,16 @@ export default function Home() {
                       </div>
 
                       <span
-                        className={`shrink-0 rounded-full border px-2.5 py-1 text-[9px] font-medium ${
-                          request.status === "PROCESSING"
-                            ? "border-cyan-300/15 bg-gradient-to-r from-cyan-300/[0.08] to-violet-400/[0.08] text-cyan-100"
-                            : request.status === "COMPLETED"
-                            ? "border-emerald-300/15 bg-emerald-300/[0.06] text-emerald-200"
-                            : request.status === "REJECTED"
-                            ? "border-rose-300/15 bg-rose-300/[0.06] text-rose-200"
-                            : request.status === "APPROVAL_REQUIRED"
-                            ? "border-amber-300/15 bg-amber-300/[0.06] text-amber-200"
-                            : "border-white/[0.07] bg-white/[0.025] text-white/40"
-                        }`}
+                        className={`shrink-0 rounded-full border px-2.5 py-1 text-[9px] font-medium ${getRequestStatusClass(
+                          request.status
+                        )}`}
                       >
                         {request.status.replaceAll("_", " ")}
                       </span>
 
                       <ChevronRight
                         size={15}
-                        className="shrink-0 text-white/15 transition group-hover:translate-x-0.5 group-hover:text-cyan-100/60"
+                        className="shrink-0 text-slate-300 dark:text-white/15 transition group-hover:translate-x-0.5 group-hover:text-cyan-600 dark:group-hover:text-cyan-100/60"
                       />
                     </button>
                   ))}
@@ -1260,7 +1246,7 @@ export default function Home() {
                     <button
                       onClick={() => fetchRecentRequests(true)}
                       disabled={requestsRefreshing}
-                      className="flex items-center gap-1.5 text-[10px] text-white/25 transition hover:text-white/60 disabled:opacity-40"
+                      className="flex items-center gap-1.5 text-[10px] text-slate-400 transition hover:text-slate-700 dark:text-white/25 dark:hover:text-white/60 disabled:opacity-40"
                     >
                       <RefreshCw
                         size={12}
@@ -1271,7 +1257,7 @@ export default function Home() {
 
                     <button
                       onClick={() => router.push("/requests")}
-                      className="flex items-center gap-1 text-xs text-cyan-100/45 transition hover:text-cyan-100"
+                      className="flex items-center gap-1 text-xs text-cyan-600 dark:text-cyan-100/45 transition hover:text-cyan-700 dark:hover:text-cyan-100"
                     >
                       View all
                       <ChevronRight size={13} />
@@ -1298,15 +1284,15 @@ function DashboardStat({
   active?: boolean;
 }) {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.018] p-4">
+    <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-4 shadow-sm dark:border-white/[0.07] dark:bg-[#0c0f16]">
       {active && (
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-cyan-300/[0.035] via-blue-400/[0.02] to-violet-400/[0.035]" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-cyan-500/[0.04] via-blue-500/[0.02] to-violet-500/[0.04] dark:from-cyan-300/[0.035] dark:via-blue-400/[0.02] dark:to-violet-400/[0.035]" />
       )}
       <div className="relative">
-        <p className="text-[9px] uppercase tracking-[0.15em] text-white/25">
+        <p className="text-[9px] uppercase tracking-[0.15em] text-slate-400 dark:text-white/25">
           {label}
         </p>
-        <p className="mt-2 text-xl font-semibold tracking-tight text-white/85">
+        <p className="mt-2 text-xl font-semibold tracking-tight text-slate-900 dark:text-white/85">
           {value}
         </p>
       </div>
@@ -1330,10 +1316,10 @@ function NavItem({
   return (
     <button
       onClick={onClick}
-      className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm transition ${
+      className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition ${
         active
-          ? "bg-white text-black"
-          : "text-white/40 hover:bg-white/5 hover:text-white"
+          ? "bg-slate-900 text-white shadow-sm dark:bg-white dark:text-black"
+          : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-white/40 dark:hover:bg-white/5 dark:hover:text-white"
       }`}
     >
       {icon}
