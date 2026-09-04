@@ -202,7 +202,7 @@ export default function ServiceCatalogPage() {
     [services, selectedDomain],
   );
 
-  async function loadCatalog() {
+  async function loadCatalog(preferredDomainId?: string) {
     const token = localStorage.getItem("access_token");
 
     if (!token) {
@@ -219,24 +219,18 @@ export default function ServiceCatalogPage() {
         apiRequest<Service[]>("/api/admin/catalog/services", token),
       ]);
 
-      setDomains(Array.isArray(domainData) ? domainData : []);
+      const domainsList = Array.isArray(domainData) ? domainData : [];
+      setDomains(domainsList);
       setServices(Array.isArray(serviceData) ? serviceData : []);
 
-      if (
-        selectedDomainId &&
-        !domainData.some((domain) => domain.id === selectedDomainId)
-      ) {
-        setSelectedDomainId(domainData[0]?.id ?? null);
-      } else if (!selectedDomainId) {
-        setSelectedDomainId(domainData[0]?.id ?? null);
-      }
-
-      const activeDomain =
-        domainData.find((domain) => domain.id === selectedDomainId) ??
-        domainData[0] ??
+      const targetId = preferredDomainId || selectedDomainId;
+      const targetDomain =
+        (targetId ? domainsList.find((domain) => domain.id === targetId) : null) ??
+        domainsList[0] ??
         null;
 
-      setSelectedServiceId(activeDomain?.service_id ?? null);
+      setSelectedDomainId(targetDomain?.id ?? null);
+      setSelectedServiceId(targetDomain?.service_id ?? null);
     } catch (err) {
       if (err instanceof Error && err.message === "SESSION_EXPIRED") {
         router.replace("/login");
@@ -320,6 +314,15 @@ export default function ServiceCatalogPage() {
   }, []);
 
   useEffect(() => {
+    if (
+      selectedDomain?.service_id &&
+      selectedDomain.service_id !== selectedServiceId
+    ) {
+      setSelectedServiceId(selectedDomain.service_id);
+    }
+  }, [selectedDomain?.service_id, selectedServiceId]);
+
+  useEffect(() => {
     if (!selectedServiceId) {
       setFields([]);
       setTemplate(null);
@@ -339,6 +342,8 @@ export default function ServiceCatalogPage() {
     setEditingDomain(null);
     setDomainName("");
     setDomainDescription("");
+    setDomainRequiresApproval(true);
+    setDomainCertificateRequired(false);
     setShowDomainForm(true);
   }
 
@@ -347,6 +352,8 @@ export default function ServiceCatalogPage() {
     setEditingDomain(domain);
     setDomainName(domain.name);
     setDomainDescription(domain.description || "");
+    setDomainRequiresApproval(domain.requires_approval);
+    setDomainCertificateRequired(domain.certificate_required);
     setShowDomainForm(true);
   }
 
@@ -435,7 +442,7 @@ export default function ServiceCatalogPage() {
 
       setSelectedDomainId(result.id);
       setSelectedServiceId(result.service_id);
-      await loadCatalog();
+      await loadCatalog(result.id);
     } catch (err) {
       if (err instanceof Error && err.message === "SESSION_EXPIRED") {
         router.replace("/login");
@@ -631,12 +638,24 @@ export default function ServiceCatalogPage() {
       setTemplateFile(null);
       setTemplateUploadInputKey((value) => value + 1);
 
+      setDomains((prev) =>
+        prev.map((d) =>
+          d.id === selectedDomainId
+            ? { ...d, template_configured: true }
+            : d,
+        ),
+      );
+
       const placeholders = uploaded.validation?.placeholders || [];
       setSuccess(
         placeholders.length
           ? `Template uploaded and validated successfully. ${placeholders.length} placeholder${placeholders.length === 1 ? "" : "s"} detected.`
           : "Template uploaded and validated successfully.",
       );
+
+      if (selectedServiceId) {
+        await loadServiceDetails(selectedServiceId);
+      }
     } catch (err) {
       setError(
         err instanceof Error
@@ -831,9 +850,11 @@ export default function ServiceCatalogPage() {
                         type="button"
                         onClick={() => {
                           setSelectedDomainId(domain.id);
-                          setSelectedServiceId(null);
-                          setFields([]);
-                          setTemplate(null);
+                          if (selectedServiceId !== domain.service_id) {
+                            setSelectedServiceId(domain.service_id);
+                          } else {
+                            void loadServiceDetails(domain.service_id);
+                          }
                         }}
                         className={`group flex w-full items-center justify-between rounded-xl px-3 py-3 text-left transition ${
                           selectedDomainId === domain.id
@@ -934,7 +955,7 @@ export default function ServiceCatalogPage() {
                             Template
                           </p>
                           <p className="mt-2 text-sm font-semibold text-white/80">
-                            {selectedDomain.template_configured
+                            {selectedDomain.template_configured || Boolean(template)
                               ? "Configured"
                               : "Not configured"}
                           </p>
@@ -1039,7 +1060,7 @@ export default function ServiceCatalogPage() {
                               </p>
                             </div>
 
-                            {selectedDomain.certificate_required ? (
+                            {selectedDomain.certificate_required || Boolean(template) ? (
                               <>
                                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                                   <FieldInput
@@ -1066,6 +1087,7 @@ export default function ServiceCatalogPage() {
                                       <span className="block truncate text-xs text-white/65">
                                         {templateFile?.name ||
                                           template?.original_file_name ||
+                                          template?.template_name ||
                                           "Choose DOCX template"}
                                       </span>
                                       <span className="mt-1 block text-[9px] text-white/20">

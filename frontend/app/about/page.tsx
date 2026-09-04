@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 const teamMembers = [
   {
     name: "Mohammad Saifullah Khan",
-    role: "Team Leader",
+    role: "CSE Undergraduate",
     initials: "SK",
     cardClass:
       "border-cyan-300/20 bg-gradient-to-br from-cyan-300/[0.10] via-blue-400/[0.06] to-violet-400/[0.06]",
@@ -22,71 +22,6 @@ const teamMembers = [
       "border-cyan-300/20 bg-cyan-300/[0.08] text-cyan-200/80",
     description:
       "Saif helps coordinate the team and oversees the overall development of NEXUS. He contributes to planning and keeps the project moving toward its goals. He works closely with the entire team throughout development.",
-  },
-  {
-    name: "Yuvraj Kansa Banik",
-    role: "Team Member",
-    initials: "YK",
-    cardClass:
-      "border-cyan-300/15 bg-cyan-300/[0.065]",
-    avatarClass:
-      "border border-cyan-300/15 bg-cyan-300/[0.14] text-cyan-200/85",
-    roleClass:
-      "border-cyan-300/15 bg-cyan-300/[0.08] text-cyan-200/70",
-    description:
-      "Yuvraj is an active member of the NEXUS team. He contributes to the development and improvement of the platform. He works collaboratively with the other members to build and refine the project.",
-  },
-  {
-    name: "Ayush Shukla",
-    role: "Team Member",
-    initials: "AK",
-    cardClass:
-      "border-blue-300/15 bg-blue-300/[0.065]",
-    avatarClass:
-      "border border-blue-300/15 bg-blue-300/[0.14] text-blue-200/85",
-    roleClass:
-      "border-blue-300/15 bg-blue-300/[0.08] text-blue-200/70",
-    description:
-      "Ayush contributes to the NEXUS project and helps turn ideas into useful features. He works closely with the team during development. His focus is on creating a smooth overall experience.",
-  },
-  {
-    name: "Aryan Kumar",
-    role: "Team Member",
-    initials: "AK",
-    cardClass:
-      "border-violet-300/15 bg-violet-300/[0.065]",
-    avatarClass:
-      "border border-violet-300/15 bg-violet-300/[0.14] text-violet-200/85",
-    roleClass:
-      "border-violet-300/15 bg-violet-300/[0.08] text-violet-200/70",
-    description:
-      "Aryan is part of the NEXUS development team. He contributes to implementing and improving different parts of the platform. He also collaborates with other members to solve development challenges.",
-  },
-  {
-    name: "Pratham Ray",
-    role: "Team Member",
-    initials: "PR",
-    cardClass:
-      "border-indigo-300/15 bg-indigo-300/[0.065]",
-    avatarClass:
-      "border border-indigo-300/15 bg-indigo-300/[0.14] text-indigo-200/85",
-    roleClass:
-      "border-indigo-300/15 bg-indigo-300/[0.08] text-indigo-200/70",
-    description:
-      "Pratham is a dedicated member of the NEXUS team. He contributes to the development and refinement of the platform. He works closely with the team to enhance the user experience and implement new features.",
-  },
-  {
-    name: "Aparna Behera",
-    role: "Team Member",
-    initials: "AB",
-    cardClass:
-      "border-purple-300/15 bg-purple-300/[0.065]",
-    avatarClass:
-      "border border-purple-300/15 bg-purple-300/[0.14] text-purple-200/85",
-    roleClass:
-      "border-purple-300/15 bg-purple-300/[0.08] text-purple-200/70",
-    description:
-      "Aparna is a member of the NEXUS team who contributes to building and improving the application. She works alongside the other members to bring the project's ideas together. Her contributions help move the project toward completion.",
   },
 ];
 
@@ -282,17 +217,16 @@ export default function AboutPage() {
             </div>
 
             <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-violet-300/50">
-              Meet the Team
+              Meet the Man
             </p>
 
             <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-              The people behind NEXUS.
+              The brain behind NEXUS.
             </h2>
 
             <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-white/35">
-              NEXUS is built through collaboration, shared
-              ideas, and the combined effort of our six-member
-              team.
+              NEXUS is built through hardworking , 
+              critical thinking and efforts.
             </p>
 
           </div>
